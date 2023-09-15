@@ -4,8 +4,18 @@ import {
   Controller,
   HttpCode,
   Post,
+  UsePipes,
 } from '@nestjs/common'
+import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { z } from 'zod'
+
+const createTodoBodySchema = z.object({
+  title: z.string(),
+  description: z.string(),
+})
+
+type CreateTodoSchema = z.infer<typeof createTodoBodySchema>
 
 @Controller('/todos')
 export class CreateTodoContoller {
@@ -13,18 +23,9 @@ export class CreateTodoContoller {
 
   @Post()
   @HttpCode(201)
-  async handle(@Body() body: any) {
+  @UsePipes(new ZodValidationPipe(createTodoBodySchema))
+  async handle(@Body() body: CreateTodoSchema) {
     const { title, description } = body
-
-    if (
-      [title, description].includes(undefined) ||
-      [title, description].includes(null)
-    ) {
-      throw new BadRequestException('Cannot proceed with request.', {
-        cause: new Error(),
-        description: 'One or more parameters is missing.',
-      })
-    }
 
     await this.prisma.todoTask.create({
       data: {
