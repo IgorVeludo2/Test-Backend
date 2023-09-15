@@ -16,7 +16,10 @@ export class CreateTodoContoller {
   async handle(@Body() body: any) {
     const { title, description } = body
 
-    if ([title, description].includes(undefined)) {
+    if (
+      [title, description].includes(undefined) ||
+      [title, description].includes(null)
+    ) {
       throw new BadRequestException('Cannot proceed with request.', {
         cause: new Error(),
         description: 'One or more parameters is missing.',
