@@ -12,6 +12,7 @@ model TodoTask {
   title       String
   description String
   isDone      Boolean   @default(false)
+  deleteToDo  Boolean   @default(false) @map("delete_todo")
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
