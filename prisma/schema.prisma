@@ -8,12 +8,12 @@ datasource db {
 }
 
 model TodoTask {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   title       String
   description String
-  isDone      Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  isDone      Boolean   @default(false)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
 
-  @@map("todotasks")
+  @@map("todotasks") // allow to reference the model name as 'todotasks'
 }
