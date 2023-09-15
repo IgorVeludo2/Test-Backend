@@ -6,3 +6,14 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model TodoTask {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  isDone      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("todotasks")
+}
