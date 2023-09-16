@@ -31,4 +31,11 @@ export class GetTodoContoller {
       )
     }
   }
+
+  @Get('/completed')
+  async getCompletedTodos() {
+    return await this.prisma.todoTask.findMany({
+      where: { isDone: true },
+    })
+  }
 }
