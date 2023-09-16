@@ -1,4 +1,4 @@
-import { Controller, Post, UsePipes, Body, Put } from '@nestjs/common'
+import { Controller, Post, UsePipes, Body } from '@nestjs/common'
 import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { z } from 'zod'
