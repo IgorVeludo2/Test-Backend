@@ -5,7 +5,6 @@ import {
   Param,
 } from '@nestjs/common'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { string } from 'zod'
 
 interface RequestById {
   id: string
