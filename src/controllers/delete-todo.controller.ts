@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service'
 import { z } from 'zod'
 
 const deleteTodoBodySchema = z.object({
-  id: z.string(),
+  id: z.string().min(1, { message: 'Empty strings is not allowed' }),
 })
 
 type DeleteBodySchema = z.infer<typeof deleteTodoBodySchema>

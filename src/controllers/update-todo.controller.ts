@@ -4,15 +4,15 @@ import { PrismaService } from 'src/prisma/prisma.service'
 import { z } from 'zod'
 
 const updateTodoBodySchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  description: z.string(),
+  id: z.string().min(1, { message: 'Empty strings is not allowed' }),
+  title: z.string().min(1, { message: 'Empty strings is not allowed' }),
+  description: z.string().min(1, { message: 'Empty strings is not allowed' }),
 })
 
 type UpdateTodoSchema = z.infer<typeof updateTodoBodySchema>
 
 const completedTodoBodySchema = z.object({
-  id: z.string(),
+  id: z.string().min(1, { message: 'Empty strings is not allowed' }),
 })
 
 type CompletedTodoSchema = z.infer<typeof completedTodoBodySchema>
