@@ -1,13 +1,7 @@
 import { Controller, UsePipes, Body, Post } from '@nestjs/common'
 import { ZodValidationPipe } from 'src/pipes/zod-validation-pipe'
 import { PrismaService } from 'src/prisma/prisma.service'
-import { z } from 'zod'
-
-const deleteTodoBodySchema = z.object({
-  id: z.string().min(1, { message: 'Empty strings is not allowed' }),
-})
-
-type DeleteBodySchema = z.infer<typeof deleteTodoBodySchema>
+import { DeleteTodoBodySchema, deleteTodoBodySchema } from './delete-zodschema'
 
 @Controller('/todos')
 export class DeleteTodoController {
@@ -15,7 +9,7 @@ export class DeleteTodoController {
 
   @Post('/delete-todo')
   @UsePipes(new ZodValidationPipe(deleteTodoBodySchema))
-  async deleteTodo(@Body() body: DeleteBodySchema) {
+  async deleteTodo(@Body() body: DeleteTodoBodySchema) {
     const { id } = body
 
     await this.prisma.todoTask.update({
